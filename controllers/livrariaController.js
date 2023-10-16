@@ -1,5 +1,5 @@
 const fs = require("fs");
-const Picture = require("../models/Livraria");
+const Book = require("../models/Livraria");
 
 exports.create = async (req, res) => {
   try {
@@ -8,7 +8,7 @@ exports.create = async (req, res) => {
     const imageFile = req.files['image'][0];
     const pdfFile = req.files['pdf'][0];
 
-    const picture = new Picture({
+    const book = new Book({
       title,
       pages,
       synopsis,
@@ -16,8 +16,8 @@ exports.create = async (req, res) => {
       pdfSrc: pdfFile.path,
     });
 
-    await picture.save();
-    res.json(picture);
+    await book.save();
+    res.json(book);
   } catch (err) {
     res.status(500).json({ message: "Erro ao salvar a imagem e o PDF." });
   }
@@ -25,41 +25,41 @@ exports.create = async (req, res) => {
 
 exports.remove = async (req, res) => {
   try {
-    const picture = await Picture.findById(req.params.id);
-    if (!picture) {
-      return res.status(404).json({ message: "Imagem não encontrada" });
+    const book = await Book.findById(req.params.id);
+    if (!book) {
+      return res.status(404).json({ message: "Livro não encontrado" });
     }
-    fs.unlinkSync(picture.imageSrc);
-    fs.unlinkSync(picture.pdfSrc);
-    await picture.remove();
-    res.json({ message: "Imagem e PDF removidos com sucesso" });
+    fs.unlinkSync(book.imageSrc);
+    fs.unlinkSync(book.pdfSrc);
+    await book.remove();
+    res.json({ message: "Livro e PDF removidos com sucesso" });
   } catch (err) {
-    res.status(500).json({ message: "Erro ao remover a imagem e o PDF" });
+    res.status(500).json({ message: "Erro ao remover o livro e o PDF" });
   }
 };
 
 exports.findAll = async (req, res) => {
   try {
-    const pictures = await Picture.find();
-    res.json(pictures);
+    const books = await Book.find();
+    res.json(books);
   } catch (err) {
-    res.status(500).json({ message: "Erro ao buscar as imagens." });
+    res.status(500).json({ message: "Erro ao buscar os livros." });
   }
 };
 
 exports.getPDF = async (req, res) => {
   try {
-    const picture = await Picture.findById(req.params.id);
-    if (!picture) {
+    const book = await Book.findById(req.params.id);
+    if (!book) {
       return res.status(404).json({ message: "Livro não encontrado" });
     }
 
     // Configurar cabeçalhos para indicar que é um PDF
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `inline; filename=${picture.title}.pdf`);
+    res.setHeader('Content-Disposition', `inline; filename=${book.title}.pdf`);
 
     // Enviar o PDF como resposta
-    fs.createReadStream(picture.pdfSrc).pipe(res);
+    fs.createReadStream(book.pdfSrc).pipe(res);
   } catch (err) {
     res.status(500).json({ message: "Erro ao obter o PDF" });
   }
@@ -67,13 +67,13 @@ exports.getPDF = async (req, res) => {
 
 exports.getImage = async (req, res) => {
   try {
-    const picture = await Picture.findById(req.params.id);
-    if (!picture) {
+    const book = await Book.findById(req.params.id);
+    if (!book) {
       return res.status(404).json({ message: "Livro não encontrado" });
     }
 
     // Enviar a imagem como resposta
-    fs.createReadStream(picture.imageSrc).pipe(res);
+    fs.createReadStream(book.imageSrc).pipe(res);
   } catch (err) {
     res.status(500).json({ message: "Erro ao obter a imagem" });
   }
