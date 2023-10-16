@@ -1,56 +1,71 @@
-# Descrição do Projeto
+# Livraria API
 
-Este projeto consiste em uma aplicação para realizar upload, armazenamento e gerenciamento de imagens. Ele utiliza Node.js e MongoDB para lidar com o armazenamento de dados e Express.js para a criação de rotas e manipulação de requisições.
+Esta API foi desenvolvida para gerenciar uma livraria virtual, permitindo a criação, listagem, remoção e obtenção de detalhes de livros.
 
-## Estrutura do Projeto
+## Funcionalidades
 
-A estrutura do projeto é dividida em diferentes partes, cada uma responsável por uma funcionalidade específica:
+- Criar um novo livro com título, número de páginas e sinopse.
+- Listar todos os livros disponíveis.
+- Obter o PDF de um livro.
+- Obter a imagem de capa de um livro.
+- Remover um livro.
 
-- **controllers/pictureController.js**: Controlador para lidar com operações relacionadas a imagens, incluindo criação, remoção e busca.
-
-- **models/Picture.js**: Modelo que representa e interage com as imagens no banco de dados MongoDB.
-
-- **config/multer.js**: Configuração do middleware Multer para facilitar o upload de arquivos.
-
-- **routes/picture.js**: Definição das rotas relacionadas às operações de imagens, utilizando o controlador e o middleware Multer.
-
-- **db.js**: Configuração para conectar o aplicativo ao banco de dados MongoDB.
-
-- **app.js**: Arquivo principal que configura o servidor Express, carrega as variáveis de ambiente e define as rotas.
-
-## Requisitos
-
-Antes de iniciar o projeto, certifique-se de ter as seguintes dependências instaladas:
+## Tecnologias Utilizadas
 
 - Node.js
-- npm (Node Package Manager)
+- Express.js
 - MongoDB
+- Multer (para upload de imagens e PDFs)
+- Mongoose (para modelagem de dados MongoDB)
 
 ## Configuração
 
 1. Clone o repositório para o seu ambiente local.
-git clone <https://github.com/KevynMurilo/ApiPicture.git>
+2. Instale as dependências usando o comando:
 
-
-2. Instale as dependências do projeto.
 npm install
 
+## Certifique-se de ter um servidor MongoDB em execução. Crie um arquivo .env na raiz do projeto e adicione a URI do seu banco de dados:
 
-3. Crie um arquivo .env na raiz do projeto e configure as variáveis de ambiente necessárias (consulte o arquivo .env.example para referência).
+MONGODB_URI=sua_uri_aqui
 
+Inicie o servidor usando:
+npm start
 
-4. Inicie o servidor.
-node app.js
+## Rotas
+POST /livraria
+Cria um novo livro. Requer um formulário com os seguintes campos:
 
+title: Título do livro.
+pages: Número de páginas.
+synopsis: Sinopse do livro.
+image: Imagem de capa do livro (envio de arquivo).
+pdf: Arquivo PDF do livro (envio de arquivo).
+GET /livraria
+Obtém todos os livros disponíveis.
 
-O servidor será iniciado e estará acessível em http://localhost:4000.
+GET /livraria/:id/pdf
+Obtém o PDF de um livro específico.
 
-## Uso
+GET /livraria/:id/image
+Obtém a imagem de capa de um livro específico.
 
-- Para criar uma nova imagem, envie uma requisição POST para http://localhost:4000/pictures com o arquivo no corpo da requisição.
+DELETE /livraria/:id
+Remove um livro específico.
 
-- Para obter todas as imagens, envie uma requisição GET para http://localhost:4000/pictures.
+Exemplo de Uso
+import axios from "axios";
 
-- Para remover uma imagem, envie uma requisição DELETE para http://localhost:4000/pictures/:id, substituindo :id pelo ID da imagem a ser removida.
-
-
+## // Exemplo de requisição para criar um novo livro
+axios.post("http://localhost:5000/livraria", {
+  title: "Novo Livro",
+  pages: 300,
+  synopsis: "Uma breve sinopse aqui.",
+  // Adicione os arquivos de imagem e PDF como FormData
+})
+  .then(response => {
+    console.log("Livro criado com sucesso!", response.data);
+  })
+  .catch(error => {
+    console.error("Erro ao criar livro:", error);
+  });
