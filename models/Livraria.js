@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const PictureSchema = new Schema({
+const BookSchema = new Schema({
   title: { type: String, required: true },
   pages: { type: Number, required: true },
   synopsis: { type: String, required: true },
@@ -9,4 +9,4 @@ const PictureSchema = new Schema({
   pdfSrc: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Picture", PictureSchema);
+module.exports = mongoose.model("Book", BookSchema);
