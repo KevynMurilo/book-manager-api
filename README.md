@@ -62,6 +62,19 @@ Obtém o PDF de um livro específico.
 GET /livraria/:id/image
 Obtém a imagem de capa de um livro específico.
 
+## PUT /livraria/:id
+Atualiza os detalhes de um livro específico. Requer um formulário com os seguintes campos:
+
+title: Título do livro.
+
+pages: Número de páginas.
+
+synopsis: Sinopse do livro.
+
+image: Nova imagem de capa do livro.
+
+pdf: Novo arquivo PDF do livro.
+
 ### DELETE /livraria/:id
 Remove um livro específico.
 
