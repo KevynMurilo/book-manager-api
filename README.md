@@ -1,10 +1,9 @@
 # API LIVRARIA ATUALIZADA
-
-Um projeto incrível que envolve [descrição curta do seu projeto].
+A API LIVRARIA ATUALIZADA é um projeto incrível que fornece funcionalidades relacionadas a uma livraria, incluindo operações CRUD (Create, Read, Update, Delete) para autores e livros. Abaixo, fornecerei uma breve descrição de cada parte do projeto:
 
 ## Instalação
 
-1. Clone o repositório: `git clone https://github.com/seuusuario/seuprojeto.git`
+1. Clone o repositório: `git clone https://github.com/KevynMurilo/API-LIVRARIA-ATUALIZADA.git`
 2. Instale as dependências: `npm install`
 
 ## Configuração
