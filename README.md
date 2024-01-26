@@ -1,5 +1,5 @@
-# API LIVRARIA ATUALIZADA
-A API LIVRARIA ATUALIZADA é um projeto incrível que fornece funcionalidades relacionadas a uma livraria, incluindo operações CRUD (Create, Read, Update, Delete) para autores e livros. Abaixo, fornecerei uma breve descrição de cada parte do projeto:
+# book-manager-api
+A book-manager-api é um projeto que fornece funcionalidades relacionadas a uma livraria, incluindo operações CRUD (Create, Read, Update, Delete) para autores e livros. Abaixo, fornecerei uma breve descrição de cada parte do projeto:
 
 ## Instalação
 
